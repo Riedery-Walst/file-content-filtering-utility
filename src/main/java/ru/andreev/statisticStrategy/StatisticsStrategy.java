@@ -1,4 +1,4 @@
-package ru.andreev;
+package ru.andreev.statisticStrategy;
 
 public interface StatisticsStrategy {
     void processLong(long longValue);

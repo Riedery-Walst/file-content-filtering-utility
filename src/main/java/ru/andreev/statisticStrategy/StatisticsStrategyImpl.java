@@ -1,4 +1,6 @@
-package ru.andreev;
+package ru.andreev.statisticStrategy;
+
+import ru.andreev.Statistics;
 
 public class StatisticsStrategyImpl implements StatisticsStrategy {
     private final Statistics statistics;

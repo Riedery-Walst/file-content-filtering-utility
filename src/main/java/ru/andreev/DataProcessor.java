@@ -1,17 +1,22 @@
 package ru.andreev;
 
+import ru.andreev.fileManagerFactory.FileManager;
+import ru.andreev.fileManagerFactory.FileManagerFactory;
+import ru.andreev.statisticStrategy.StatisticsStrategy;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class DataProcessor {
     private final CommandLineOptions options;
-    private final FileManager fileManager;
+    private final FileManagerFactory fileManagerFactory;
     private final StatisticsStrategy statisticsStrategy;
 
-    public DataProcessor(CommandLineOptions options, FileManager fileManager, StatisticsStrategy statisticsStrategy) {
+    public DataProcessor(CommandLineOptions options, FileManagerFactory fileManagerFactory,
+                         StatisticsStrategy statisticsStrategy) {
         this.options = options;
-        this.fileManager = fileManager;
+        this.fileManagerFactory = fileManagerFactory;
         this.statisticsStrategy = statisticsStrategy;
     }
 
@@ -24,28 +29,35 @@ public class DataProcessor {
                 }
             }
         }
-        fileManager.close();
     }
 
-    public void processLine(String line) {
+    public void processLine(String line) throws IOException {
         try {
             long longValue = Long.parseLong(line);
 
-            fileManager.addLongToFile(longValue);
+            FileManager<Long> integerFileManager = fileManagerFactory.createIntegerFileManager();
+            integerFileManager.addDataToFile(longValue);
 
             statisticsStrategy.processLong(longValue);
+            integerFileManager.close();
         } catch (NumberFormatException e1) {
             try {
                 double doubleValue = Double.parseDouble(line);
 
-                fileManager.addDoublesToFile(doubleValue);
+                FileManager<Double> floatFileManager = fileManagerFactory.createFloatFileManager();
+                floatFileManager.addDataToFile(doubleValue);
 
                 statisticsStrategy.processDouble(doubleValue);
-            } catch (NumberFormatException e2) {
-                fileManager.addStringsToFile(line);
+                floatFileManager.close();
+            } catch (NumberFormatException | IOException e2) {
+                FileManager<String> stringFileManager = fileManagerFactory.createStringFileManager();
+                stringFileManager.addDataToFile(line);
 
                 statisticsStrategy.processString(line);
+                stringFileManager.close();
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
