@@ -86,7 +86,7 @@ public class Statistics {
     }
 
     public void setMaxLong(int num) {
-        maxLong = (maxLong == 0 ) ? num : Math.min(maxLong, num);
+        maxLong = (maxLong == 0 ) ? num : Math.max(maxLong, num);
     }
 
     public void setMinDouble(double num) {
@@ -94,9 +94,8 @@ public class Statistics {
     }
 
     public void setMaxDouble(double num) {
-        maxDouble = (maxDouble == 0 ) ? num : Math.min(maxDouble, num);
+        maxDouble = (maxDouble == 0) ? num : Math.max(maxDouble, num);
     }
-
     public void setSumOfLong(long num) {
         if (sumLong.add(BigInteger.valueOf(num)).compareTo(BigInteger.valueOf(Long.MAX_VALUE)) <= 0) {
             sumLong = sumLong.add(BigInteger.valueOf(num));
