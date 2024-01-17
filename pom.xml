@@ -36,6 +36,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
+                    <finalName>util</finalName>
+                    <outputDirectory>${project.basedir}</outputDirectory>
                     <archive>
                         <manifest>
                             <mainClass>ru.andreev.Main</mainClass>
