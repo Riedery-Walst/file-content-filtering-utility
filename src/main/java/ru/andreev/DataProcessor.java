@@ -48,7 +48,6 @@ public class DataProcessor {
             }
         }
 
-        // Check and delete empty files
         deleteIfEmpty(intFile);
         deleteIfEmpty(doubleFile);
         deleteIfEmpty(stringFile);
