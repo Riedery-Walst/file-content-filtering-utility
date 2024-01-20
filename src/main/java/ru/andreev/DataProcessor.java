@@ -58,7 +58,7 @@ public class DataProcessor {
             if (file.delete()) {
                 System.out.println("Удалены пустые файлы: " + file.getName());
             } else {
-                System.err.println("Не удалось: удалить пустые файлы" + file.getName());
+                System.err.println("Не удалось удалить пустые файлы" + file.getName());
             }
         }
     }
