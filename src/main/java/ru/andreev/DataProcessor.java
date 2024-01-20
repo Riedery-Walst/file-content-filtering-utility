@@ -56,9 +56,9 @@ public class DataProcessor {
     private void deleteIfEmpty(File file) {
         if (file.length() == 0) {
             if (file.delete()) {
-                System.out.println("Deleted empty file: " + file.getName());
+                System.out.println("Удалены пустые файлы: " + file.getName());
             } else {
-                System.err.println("Failed to delete empty file: " + file.getName());
+                System.err.println("Не удалось: удалить пустые файлы" + file.getName());
             }
         }
     }
